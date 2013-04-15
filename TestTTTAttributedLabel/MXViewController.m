@@ -7,6 +7,8 @@
 //
 
 #import "MXViewController.h"
+#import "TTTAttributedLabel.h"
+#import "NSAttributedString+Sizing.h"
 
 @interface MXViewController ()
 
@@ -17,13 +19,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    NSString *regularString = @"Test this sentence";
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:regularString];
+    
+    // Full width
+    TTTAttributedLabel *fullWidthLabel = [[self class] baseTTTLabel];
+    fullWidthLabel.text = attributedString;
+    fullWidthLabel.frame = CGRectMake(0, 0, 97, 15);
+//    [testLabel sizeToFit]; // frame = {{0, 0}, {97, 15}}
+    NSLog(@"fullWidthLabel frame = %@",NSStringFromCGRect(fullWidthLabel.frame));
+    [self.view addSubview:fullWidthLabel];
+    
+    // Less width -- truncates top part of text (trying to draw with multiple lines?)
+    TTTAttributedLabel *nonFullWidthLabel = [[self class] baseTTTLabel];
+    nonFullWidthLabel.text = attributedString;
+    nonFullWidthLabel.frame = CGRectMake(0, 50, 87, 15);
+    NSLog(@"nonFullWidthLabel frame = %@",NSStringFromCGRect(nonFullWidthLabel.frame));
+    [self.view addSubview:nonFullWidthLabel];
+    
+    // Standard `UILabel` at full width
+    UILabel *fullWidthRegularLabel = [[self class] baseUILabel];
+    fullWidthRegularLabel.text = regularString;
+    fullWidthRegularLabel.frame = CGRectMake(0, 100, 139, 21);
+    NSLog(@"regularLabel frame = %@",NSStringFromCGRect(fullWidthRegularLabel.frame));
+//    [regularLabel sizeToFit]; {{0, 100}, {139, 21}}
+    [self.view addSubview:fullWidthRegularLabel];
+    
+    // Expected Behavior for reducing width -- truncates without changing baseline (not sure if baseline is the accurate term)
+    UILabel *nonFullWidthRegularLabel = [[self class] baseUILabel];
+    nonFullWidthRegularLabel.text = regularString;
+    CGRect smallerWidthRect = fullWidthLabel.frame;
+    smallerWidthRect.origin.y = 150;
+    smallerWidthRect.size.width = smallerWidthRect.size.width -= 10;
+    nonFullWidthRegularLabel.frame = smallerWidthRect;
+    [self.view addSubview:nonFullWidthRegularLabel];
+    NSLog(@"nonFullWidthRegularLabel frame = %@",NSStringFromCGRect(nonFullWidthRegularLabel.frame));
+    
+    
 }
 
-- (void)didReceiveMemoryWarning
++ (TTTAttributedLabel *)baseTTTLabel
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    label.lineBreakMode = NSLineBreakByTruncatingTail;
+    label.numberOfLines = 1;
+    return label;
+}
+
++ (UILabel *)baseUILabel
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.numberOfLines = 1;
+    label.lineBreakMode = NSLineBreakByTruncatingTail;
+    return label;
 }
 
 @end

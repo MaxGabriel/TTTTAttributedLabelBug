@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150BE6D27A6D432D8829CE0C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CE84A126E84FD898398FDD /* libPods.a */; };
 		5066FCCD171CB94B00687681 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5066FCCC171CB94B00687681 /* UIKit.framework */; };
 		5066FCCF171CB94B00687681 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5066FCCE171CB94B00687681 /* Foundation.framework */; };
 		5066FCD1171CB94B00687681 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5066FCD0171CB94B00687681 /* CoreGraphics.framework */; };
@@ -18,6 +19,7 @@
 		5066FCE3171CB94B00687681 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5066FCE2171CB94B00687681 /* Default-568h@2x.png */; };
 		5066FCE6171CB94B00687681 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5066FCE4171CB94B00687681 /* MainStoryboard.storyboard */; };
 		5066FCE9171CB94B00687681 /* MXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5066FCE8171CB94B00687681 /* MXViewController.m */; };
+		5066FCF1171CBAE300687681 /* NSAttributedString+Sizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5066FCF0171CBAE300687681 /* NSAttributedString+Sizing.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		5066FCE5171CB94B00687681 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		5066FCE7171CB94B00687681 /* MXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXViewController.h; sourceTree = "<group>"; };
 		5066FCE8171CB94B00687681 /* MXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXViewController.m; sourceTree = "<group>"; };
+		5066FCEF171CBAE300687681 /* NSAttributedString+Sizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Sizing.h"; sourceTree = "<group>"; };
+		5066FCF0171CBAE300687681 /* NSAttributedString+Sizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Sizing.m"; sourceTree = "<group>"; };
+		B6CE84A126E84FD898398FDD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1881ADAC8014024B7F1015D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +53,7 @@
 				5066FCCD171CB94B00687681 /* UIKit.framework in Frameworks */,
 				5066FCCF171CB94B00687681 /* Foundation.framework in Frameworks */,
 				5066FCD1171CB94B00687681 /* CoreGraphics.framework in Frameworks */,
+				150BE6D27A6D432D8829CE0C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +66,7 @@
 				5066FCD2171CB94B00687681 /* TestTTTAttributedLabel */,
 				5066FCCB171CB94B00687681 /* Frameworks */,
 				5066FCCA171CB94B00687681 /* Products */,
+				F1881ADAC8014024B7F1015D /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +84,7 @@
 				5066FCCC171CB94B00687681 /* UIKit.framework */,
 				5066FCCE171CB94B00687681 /* Foundation.framework */,
 				5066FCD0171CB94B00687681 /* CoreGraphics.framework */,
+				B6CE84A126E84FD898398FDD /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,6 +97,8 @@
 				5066FCE4171CB94B00687681 /* MainStoryboard.storyboard */,
 				5066FCE7171CB94B00687681 /* MXViewController.h */,
 				5066FCE8171CB94B00687681 /* MXViewController.m */,
+				5066FCEF171CBAE300687681 /* NSAttributedString+Sizing.h */,
+				5066FCF0171CBAE300687681 /* NSAttributedString+Sizing.m */,
 				5066FCD3171CB94B00687681 /* Supporting Files */,
 			);
 			path = TestTTTAttributedLabel;
@@ -114,9 +125,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5066FCEC171CB94B00687681 /* Build configuration list for PBXNativeTarget "TestTTTAttributedLabel" */;
 			buildPhases = (
+				8156D33D79C849C5B6F3AE04 /* Check Pods Manifest.lock */,
 				5066FCC5171CB94B00687681 /* Sources */,
 				5066FCC6171CB94B00687681 /* Frameworks */,
 				5066FCC7171CB94B00687681 /* Resources */,
+				0396F9260F6845B6A1B66546 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +182,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0396F9260F6845B6A1B66546 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		8156D33D79C849C5B6F3AE04 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5066FCC5171CB94B00687681 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -177,6 +221,7 @@
 				5066FCD9171CB94B00687681 /* main.m in Sources */,
 				5066FCDD171CB94B00687681 /* MXAppDelegate.m in Sources */,
 				5066FCE9171CB94B00687681 /* MXViewController.m in Sources */,
+				5066FCF1171CBAE300687681 /* NSAttributedString+Sizing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +305,7 @@
 		};
 		5066FCED171CB94B00687681 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1881ADAC8014024B7F1015D /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestTTTAttributedLabel/TestTTTAttributedLabel-Prefix.pch";
@@ -271,6 +317,7 @@
 		};
 		5066FCEE171CB94B00687681 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1881ADAC8014024B7F1015D /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestTTTAttributedLabel/TestTTTAttributedLabel-Prefix.pch";
@@ -299,6 +346,7 @@
 				5066FCEE171CB94B00687681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
