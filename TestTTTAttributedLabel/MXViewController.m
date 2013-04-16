@@ -22,20 +22,32 @@
     NSString *regularString = @"Test this sentence";
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:regularString];
     
+    
+    /*
     // Full width
     TTTAttributedLabel *fullWidthLabel = [[self class] baseTTTLabel];
+    fullWidthLabel.backgroundColor = [UIColor purpleColor];
     fullWidthLabel.text = attributedString;
-    fullWidthLabel.frame = CGRectMake(0, 0, 97, 15);
+    fullWidthLabel.frame = CGRectMake(0, 0, 97, 40);
 //    [testLabel sizeToFit]; // frame = {{0, 0}, {97, 15}}
     NSLog(@"fullWidthLabel frame = %@",NSStringFromCGRect(fullWidthLabel.frame));
     [self.view addSubview:fullWidthLabel];
+     
+    */
     
     // Less width -- truncates top part of text (trying to draw with multiple lines?)
     TTTAttributedLabel *nonFullWidthLabel = [[self class] baseTTTLabel];
+    nonFullWidthLabel.backgroundColor = [UIColor blueColor];
+//    NSLog(@"Created");
     nonFullWidthLabel.text = attributedString;
+    NSLog(@"Set text");
     nonFullWidthLabel.frame = CGRectMake(0, 50, 87, 15);
-    NSLog(@"nonFullWidthLabel frame = %@",NSStringFromCGRect(nonFullWidthLabel.frame));
+    NSLog(@"Set frame");
+//    NSLog(@"nonFullWidthLabel frame = %@",NSStringFromCGRect(nonFullWidthLabel.frame));
     [self.view addSubview:nonFullWidthLabel];
+    NSLog(@"Added subview");
+    
+    /*
     
     // Standard `UILabel` at full width
     UILabel *fullWidthRegularLabel = [[self class] baseUILabel];
@@ -54,7 +66,7 @@
     nonFullWidthRegularLabel.frame = smallerWidthRect;
     [self.view addSubview:nonFullWidthRegularLabel];
     NSLog(@"nonFullWidthRegularLabel frame = %@",NSStringFromCGRect(nonFullWidthRegularLabel.frame));
-    
+    */
     
 }
 

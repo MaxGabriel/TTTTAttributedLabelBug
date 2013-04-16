@@ -862,27 +862,27 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     }
 }
 
-- (CGRect)textRectForBounds:(CGRect)bounds
+- (CGRect)textRectForBounds:(CGRect)bounds // BAD {0,0}{87,15} // GOOD {0,0}{97,15}
      limitedToNumberOfLines:(NSInteger)numberOfLines
 {
     if (!self.attributedText) {
         return [super textRectForBounds:bounds limitedToNumberOfLines:numberOfLines];
     }
         
-    CGRect textRect = bounds;
+    CGRect textRect = bounds; // BAD {0,0}{87,15} // GOOD {0,0}{97,15}
 
     // Calculate height with a minimum of double the font pointSize, to ensure that CTFramesetterSuggestFrameSizeWithConstraints doesn't return CGSizeZero, as it would if textRect height is insufficient.
-    textRect.size.height = fmaxf(self.font.pointSize * 2.0f, bounds.size.height);
+    textRect.size.height = fmaxf(self.font.pointSize * 2.0f, bounds.size.height); // BOTH: height = 34
 
     // Adjust the text to be in the center vertically, if the text size is smaller than bounds
-    CGSize textSize = CTFramesetterSuggestFrameSizeWithConstraints(self.framesetter, CFRangeMake(0, [self.attributedText length]), NULL, textRect.size, NULL);
-    textSize = CGSizeMake(ceilf(textSize.width), ceilf(textSize.height)); // Fix for iOS 4, CTFramesetterSuggestFrameSizeWithConstraints sometimes returns fractional sizes
+    CGSize textSize = CTFramesetterSuggestFrameSizeWithConstraints(self.framesetter, CFRangeMake(0, [self.attributedText length]), NULL, textRect.size, NULL); // BAD: {48.7031,30} // GOOD : {96.0527,15}
+    textSize = CGSizeMake(ceilf(textSize.width), ceilf(textSize.height)); // Fix for iOS 4, CTFramesetterSuggestFrameSizeWithConstraints sometimes returns fractional sizes // BAD: {49,30} // GOOD {97,15}
     
-    if (textSize.height < textRect.size.height) {
+    if (textSize.height < textRect.size.height) { // BOTH: TRUE
         CGFloat yOffset = 0.0f;
         switch (self.verticalAlignment) {
             case TTTAttributedLabelVerticalAlignmentCenter:
-                yOffset = floorf((bounds.size.height - textSize.height) / 2.0f);
+                yOffset = floorf((bounds.size.height - textSize.height) / 2.0f); // BAD: -8 // GOOD: 0
                 break;
             case TTTAttributedLabelVerticalAlignmentBottom:
                 yOffset = bounds.size.height - textSize.height;
@@ -898,7 +898,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     return textRect;
 }
 
-- (void)drawTextInRect:(CGRect)rect {
+- (void)drawTextInRect:(CGRect)rect { // BAD: {0,0}{87,15} // GOOD: {0,0}{97,15}
     if (!self.attributedText) {
         [super drawTextInRect:rect];
         return;
@@ -933,10 +933,12 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     CFRange textRange = CFRangeMake(0, [self.attributedText length]);
 
     // First, get the text rect (which takes vertical centering into account)
-    CGRect textRect = [self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines];
+    CGRect textRect = [self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines]; // BAD: {0,-8}{87,34} // GOOD: {0,0}{97,34}
 
     // CoreText draws it's text aligned to the bottom, so we move the CTM here to take our vertical offsets into account
-    CGContextTranslateCTM(c, rect.origin.x, rect.size.height - textRect.origin.y - textRect.size.height);
+    CGContextTranslateCTM(c, rect.origin.x, rect.size.height -  textRect.origin.y - textRect.size.height);
+    // Y Translation : BAD: -11 // GOOD : -19
+    // Giving a hard-coded value of -19 for the 87 width label causes it to format correctly.
 
     // Second, trace the shadow before the actual text, if we have one
     if (self.shadowColor && !self.highlighted) {
